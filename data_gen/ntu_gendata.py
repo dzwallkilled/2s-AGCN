@@ -128,9 +128,6 @@ def gendata(data_path, out_path, ignored_sample_path=None, benchmark='xview', pa
             sample_name.append(filename)
             sample_label.append(action_class - 1)
 
-    with open('{}/{}_label.pkl'.format(out_path, part), 'wb') as f:
-        pickle.dump((sample_name, list(sample_label)), f)
-
     fp = np.zeros((len(sample_label), 3, max_frame, num_joint, max_body_true), dtype=np.float32)
 
     for i, s in enumerate(tqdm(sample_name)):

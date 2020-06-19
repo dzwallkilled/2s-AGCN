@@ -3,7 +3,6 @@ import sys
 
 sys.path.extend(['../'])
 from graph import tools
-import networkx as nx
 
 # Joint index:
 # {0,  "Nose"}
