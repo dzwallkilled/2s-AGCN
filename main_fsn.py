@@ -111,7 +111,7 @@ class Processor():
             worker_init_fn=init_seed)
 
     def load_model(self):
-        output_device = get_available_device(self.args.num_gpus, )
+        output_device = get_available_device(self.args.num_gpus, -1, 5000)
         self.output_device = output_device
         Model = import_class(self.args.model)
         shutil.copy2(inspect.getfile(Model), self.args.work_dir)

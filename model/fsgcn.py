@@ -21,6 +21,8 @@ def fuse_logits(logits1, logits2, mode='sum', w=1):
                 new_logits.append(d1 + w * d2)
             elif mode == 'max':
                 new_logits.append(torch.max(d1, d2))
+            elif mode == 'mul':
+                new_logits.append(torch.mul(d1, d2))
             else:
                 raise ValueError(f"No such fusion mode {mode}")
         else:
@@ -269,6 +271,11 @@ def _test_logits_fusion():
     new_logits = fuse_logits(logits1, logits2, 'sum', 1)
     new_logits2 = fuse_logits(logits1, logits2, 'wsum', 0)
     new_logits3 = fuse_logits(logits1, logits2, 'max')
+    new_logits4 = fuse_logits(logits1, logits2, 'mul')
+    d1 = torch.Tensor((1, 2, 3, 4,))
+    d2 = torch.Tensor((4, 3, 2, 1))
+    new_d = fuse_logits(d1, d2, 'mul')
+
     return new_logits
 
 

@@ -1,0 +1,50 @@
+work_dir: /home/zd027/exp/FSGCN/h36m/front/frame3/agcn/
+model_saved_name: /home/zd027/exp/FSGCN/h36m/front/frame3/agcn/model
+# feeder
+feeder: feeders.h36m_dataset.H36MSkel2D2Stream
+train_feeder_args:
+  debug: False
+  data_type: '2stream'
+  load_data_args:
+    data_path: ./data/h36m/data_all_ver2.npy
+    max_frame: 3
+    viewpoint: 'front'
+
+test_feeder_args:
+  debug: False
+  data_type: '2stream'
+  load_data_args:
+    data_path: ./data/h36m/data_all_ver2.npy
+    max_frame: 3
+    viewpoint: 'front'
+
+# model
+model: model.fsgcn.Model2Stream
+model_args:
+  graph: graph.h36m.Graph
+  graph_args:
+    labeling_mode: 'spatial'
+  branch_args1:
+    num_point: 32
+    num_person: 1
+  branch_args2:
+    num_point: 32
+    num_person: 1
+  use_fsn: False # important
+  use_ptcn: False # important
+  pyramid_level: 2 # important, correlated with max_frame
+
+#optim
+weight_decay: 0.0001
+base_lr: 0.1
+step: [30, 40]
+
+# training
+phase: 'train'
+num_gpus: 1
+batch_size: 64
+test_batch_size: 64
+num_epoch: 50
+nesterov: True
+fusion_mode: sum
+fusion_weight: 1

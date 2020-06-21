@@ -108,8 +108,8 @@ def get_parser():
         '--fusion_mode',
         type=str,
         default='sum',
-        choices=['sum', 'wsum','max'],
-        help='score fusion mode, sum, weighted sum(wsum), max'
+        choices=['sum', 'wsum', 'max', 'mul'],
+        help='score fusion mode, sum, weighted sum(wsum), max, element-wise multiplication(mul)'
     )
     parser.add_argument(
         '--fusion_weight',
